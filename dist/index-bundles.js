@@ -93,11 +93,52 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function sayHello() {
-  console.log('Hello');
-}
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+var geometry = new THREE.BoxGeometry(1, 1, 1, 1, 1, 1);
+/* Right of spawn face */
 
-sayHello();
+geometry.faces[0].color = new THREE.Color(0xd9d9d9);
+geometry.faces[1].color = new THREE.Color(0xd9d9d9);
+/* Left of spawn face */
+
+geometry.faces[2].color = new THREE.Color(0x2196f3);
+geometry.faces[3].color = new THREE.Color(0x2196f3);
+/* Above spawn face */
+
+geometry.faces[4].color = new THREE.Color(0xfffff0);
+geometry.faces[5].color = new THREE.Color(0xfffff0);
+/* Below spawn face */
+
+geometry.faces[6].color = new THREE.Color(1, 0, 0);
+geometry.faces[7].color = new THREE.Color(1, 0, 0);
+/* Spawn face */
+
+geometry.faces[8].color = new THREE.Color(0, 1, 0);
+geometry.faces[9].color = new THREE.Color(0, 1, 0);
+/* Opposite spawn face */
+
+geometry.faces[10].color = new THREE.Color(0, 0, 1);
+geometry.faces[11].color = new THREE.Color(0, 0, 1);
+var material = new THREE.MeshBasicMaterial({
+  color: 0xffffff,
+  vertexColors: THREE.FaceColors
+});
+var cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+camera.position.z = 5;
+
+var animate = function animate() {
+  requestAnimationFrame(animate);
+  cube.rotation.x += 0.030;
+  cube.rotation.y += 0.030;
+  renderer.render(scene, camera);
+};
+
+animate();
 
 /***/ })
 
